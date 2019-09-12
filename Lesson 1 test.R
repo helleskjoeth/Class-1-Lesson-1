@@ -144,5 +144,30 @@ all_above <- filter(df,df$shoesize>=39, df$touch_floor=="Yes" | df$touch_floor =
 #Arrange data after the slowest tongue-twister
 slow_tongue <- arrange(df,desc(df$tongue_twist))
 
+#Find who did best in Romberg experiments. 
+best_Romberg <- arrange(df,desc(df$romberg_closed), desc(df$romberg_closed))
+
+#3: idk actually. 
+
+#exercise 3
+#what happens when you select the same column twice?
+
+select(df, df$name, df$name)
+#This happens: Error in inds_combine(.vars, ind_list) : Position must be between 0 and n
+
+select(df,"gender","gender","gender", "name")
+#Or here it just posts the gender 1 time anyway. 
+
+#2 - make this vector
+vars = c("name", "shoesize", "touch_floor")
+
+#2.1- what happens when you select witht his vector?
+select(df,vars)
+#It shows the chosen columns in the prefered order. 
+
+#3. rearrange dataframe with gender and shoesize first. 
+?everything
+
+All_new <- select(df,"gender" , "shoesize", everything(df))
 
 #We can stop at "mutate"
