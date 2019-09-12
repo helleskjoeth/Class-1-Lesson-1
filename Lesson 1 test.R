@@ -84,3 +84,65 @@ subset(siblingfabio,siblings_off==0)
 ?length()
 ?unique
 ?mean
+
+getwd()
+#To see what folder you are working in. 
+
+setwd() 
+#To change your working folder. 
+
+?read.table
+df <- read.csv("NEW_CogSciPersonalityTest2019.csv")
+df
+view("df")
+View(df)
+
+#When you download a package it's better to write it directly in the console, so you don't accidentlly download it more than once
+
+library("pacman")
+
+#Instead of doing the library, you do: 
+pacman::p_load(tidyverse)
+
+#filter for shoe size 40 
+#subset() if the same as filter()
+
+shoes40 <- filter(df,shoesize==40)
+View(shoes40)
+
+bigfoot_data <- filter(df, df$shoesize >=45)
+View(bigfoot_data)
+
+#filter by several arguments
+male_lefthanded <- filter(df, df$gender=="male" & df$handedness=="Left-handed")
+View(male_lefthanded)
+
+
+#Exercise 1
+#Find people who have shoesize 39 or bigger
+shoes39or_more <- filter(df,df$shoesize>=39)
+View(shoes39or_more)
+
+#number 2
+View(levels(df$touch_floor))
+#for at vide, hvad svarmulighederne hedder
+
+can_touch_floor <- filter(df,df$touch_floor=="Yes" | df$touch_floor == "Yes, of course!!" )
+
+#number 3 - people who could hold their breath longer than average
+mean_breath <- mean(df$breath_hold)
+
+good_lungs <- filter(df,df$breath_hold>mean_breath)
+
+#number 4 - who could balance baloon between 13 and 60 seconds
+balloon_13to60 <- filter(df, df$balloon_balance>=13 & df$balloon_balance<=60) 
+
+#5 all of the above
+all_above <- filter(df,df$shoesize>=39, df$touch_floor=="Yes" | df$touch_floor == "Yes, of course!!", df$breath_hold>mean_breath, df$balloon_balance>=13, df$balloon_balance<=60)
+
+#Exercise 2
+#Arrange data after the slowest tongue-twister
+slow_tongue <- arrange(df,desc(df$tongue_twist))
+
+
+#We can stop at "mutate"
