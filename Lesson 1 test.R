@@ -14,7 +14,7 @@ a_new_vector<-a_vector*3
 a_new_vector
 class(a_new_vector)
 a_new_vector[-1]
-a_new_vector[-c(1,2)]
+a_new_vector[-c(1,2)] 
 rm(box) #rm er en funktion der fjerne noget fra the environment. 
 #if you do something permanent to a variable, you have to give it a new name. Because if you just do something, it will show the result, but won't remember it. 
 sum(a_new_vector)
@@ -170,4 +170,35 @@ select(df,vars)
 
 All_new <- select(df,"gender" , "shoesize", everything(df))
 
-#We can stop at "mutate"
+#Exercise 4 
+#Create new column with words per second for the tongue twister
+
+df <- mutate(df, words_per_second = 99/df$tongue_twist)
+view(df)
+
+#create two new columns called breath_min and breath_sec 
+df <- mutate(df, breath_min = df$breath_hold %/% 60)
+df <- mutate(df, breath_sec = df$breath_hold - df$breath_min*60)
+
+#Create new colums with how far people are from the average words per second. 
+df <- mutate(df, words_per_second_deviance = mean(df$words_per_second) - df$words_per_second)
+
+#exercise 5
+#Is there a gender related difference on balloon balancing 
+bb_gender <- df %>% group_by(gender) %>% summarise(mean(balloon_balance))
+#Skriv ikke df$ inde i mean(), så kan den ikke finde ud af det. 
+#Yes the males very a lot better. 
+
+#2 is there a relation between chosen cola and preferred sound level? 
+df %>% group_by(taste_cola) %>% summarise(mean(sound_level_pref))
+#Small difference from 22.8 to 26.3
+
+#Does handedness influence tongue twisting speed?
+df %>% group_by(handedness) %>% summarise(mean(tongue_twist))
+#Nahh maybe not, because there are many more right-handed people. But the right-handed people are about 5.3 seconds faster. 
+
+#Add a column with number of observations in each group. 
+df %>% group_by(handedness) %>% summarise(mean(tongue_twist), length(handedness))
+?n()
+df %>% group_by(handedness) %>% summarise(mean(tongue_twist), n())
+#Both of these work. There is 1 ambidextrous, 8 lefties and 53 righties. 
