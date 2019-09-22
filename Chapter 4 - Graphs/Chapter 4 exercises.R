@@ -1,0 +1,51 @@
+getwd()
+facebookData <- read.delim("FacebookNarcissism.dat", header = TRUE)
+graph <- ggplot(facebookData, aes(NPQC_R_Total, Rating))
+graph+geom_point()
+graph+geom_point(shape=17)
+graph+geom_point(size = 6)
+graph+geom_point(aes(colour = Rating_Type))
+graph+geom_point(aes(colour = Rating_Type), position = "jitter")
+graph+geom_point(aes(shape = Rating_Type), position = "jitter")
+
+examData <- read.delim("Exam Anxiety.dat", header=TRUE)
+scatter <- ggplot(examData, aes(Anxiety, Exam))
+scatter + geom_point()
+scatter + geom_point() + labs(x = "Exam Anxiety", y = "Exam Performance %")
+scatter + geom_point() + geom_smooth() + labs(x = "Exam Anxiety", y = "Exam Performance %")
+scatter + geom_point() + geom_smooth(method = "lm") + labs(x = "Exam Anxiety", y = "Exam Performance %")
+scatter + geom_point() + geom_smooth(method = "lm", colour = "Red") + labs(x = "Exam Anxiety", y = "Exam Performance %")
+scatter + geom_point() + geom_smooth(method = "lm", colour = "Red", se = F) + labs(x = "Exam Anxiety", y = "Exam Performance %")
+scatter + geom_point() + geom_smooth(method = "lm", colour = "Red", alpha = 0.1, fill="Red") + labs(x = "Exam Anxiety", y = "Exam Performance %")
+scatter <- ggplot(examData, aes(Anxiety, Exam, colour = Gender))
+scatter + geom_point() + geom_smooth(method = "lm")
+scatter + geom_point() + geom_smooth(method = "lm", aes(fill = Gender), alpha = 0.1)
+scatter + geom_point() + geom_smooth(method = "lm", aes(fill = Gender), alpha = 0.1) + labs(x = "Exam Anxiety", y = "Exam Performance %", colour = "Gender")
+
+graph <- ggplot(facebookData, aes(NPQC_R_Total, Rating_Type))                  
+graph+geom_line()
+graph+geom_line(aes(colour = Rating_Type))
+graph+geom_line(aes(colour = Rating_Type))+ geom_point()
+graph+geom_line(aes(colour = Rating_Type))+ geom_point()+ labs(X = "Narcissism", y = "Rating Type")
+
+festivalData <- read.delim("DownloadFestival.dat", header = T)
+festivalHistogram <- ggplot(festivalData, aes(day1))                 
+festivalHistogram + geom_histogram()
+festivalHistogram + geom_histogram(binwidth=0.4)
+festivalHistogram + geom_histogram(binwidth=0.4) + labs(x = "Hygeine (Day 1 of Festival)", y = "Frequency")
+
+festivalBoxplot <- ggplot(festivalData, aes(gender, day1))
+festivalBoxplot+geom_boxplot() + labs(x = "Gender", y = "Hygeine (Day 1 of Festival)")
+
+festivalData <- festivalData[order(festivalData$day1),]
+festivalBoxplot+geom_boxplot() + labs(x = "Gender", y = "Hygeine (Day 1 of Festival)")
+
+festivalBoxplot2 <- ggplot(festivalData, aes(gender, day2))
+festivalBoxplot2+geom_boxplot() + labs(x = "Gender", y = "Hygeine (Day 2 of Festival)")
+
+festivalBoxplot3 <- ggplot(festivalData, aes(gender, day3))
+festivalBoxplot3+geom_boxplot() + labs(x = "Gender", y = "Hygeine (Day 3 of Festival)")
+
+density <- ggplot(festivalData, aes(day1))
+density + geom_density()
+density + geom_density() + labs(x ="Hygeine (Day 1 of Festival)", y = "Density Estimate")
